@@ -9,7 +9,9 @@ import (
 
 func GetArticleController(echoContext echo.Context) error {
 
-	articles, err := database.GetArticles()
+	title := echoContext.QueryParam("title")
+
+	articles, err := database.GetArticles(title)
 	if err != nil {
 		return echoContext.JSON(http.StatusInternalServerError, map[string]interface{}{
 			"status":   "err",
