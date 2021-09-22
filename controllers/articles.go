@@ -11,7 +11,7 @@ func GetArticleController(echoContext echo.Context) error {
 
 	title := echoContext.QueryParam("title")
 
-	articles, err := database.GetArticles(title)
+	articles, err := database.GetArticles(title, 0, 0)
 	if err != nil {
 		return echoContext.JSON(http.StatusInternalServerError, map[string]interface{}{
 			"status":   "err",
