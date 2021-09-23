@@ -28,6 +28,7 @@ func InitDB(status string) {
 	if err != nil {
 		panic(err)
 	}
+	MigrateDB()
 }
 
 func MigrateDB() {

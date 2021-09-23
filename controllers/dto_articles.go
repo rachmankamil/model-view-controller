@@ -7,9 +7,9 @@ import (
 )
 
 type RequestArticle struct {
-	Title   string `json:"title"`
-	Author  string `json:"author"`
-	RawHTML string `json:"raw_html"`
+	Title   string `form:"title"`
+	Author  string `form:"author"`
+	RawHTML string `form:"raw_html"`
 }
 
 func (req *RequestArticle) toModel() models.Article {
@@ -21,20 +21,22 @@ func (req *RequestArticle) toModel() models.Article {
 }
 
 type ResponseArticle struct {
-	ID        string    `json:"id"`
+	ID        uint      `json:"id"`
 	Title     string    `json:"title"`
 	Author    string    `json:"author"`
 	RawHTML   string    `json:"raw_html"`
+	Path      string    `json:"path_thumb"`
 	CreatedAt time.Time `json:"created_at"`
 	UpdatedAt time.Time `json:"updated_at"`
 }
 
 func newResponse(mdlArticles models.Article) ResponseArticle {
 	return ResponseArticle{
-		ID:        mdlArticles.ID,
+		ID:        mdlArticles.Model.ID,
 		Title:     mdlArticles.Title,
 		Author:    mdlArticles.Author,
 		RawHTML:   mdlArticles.RawHTML,
+		Path:      mdlArticles.ThumbnailPath,
 		CreatedAt: mdlArticles.CreatedAt,
 		UpdatedAt: mdlArticles.UpdatedAt,
 	}
